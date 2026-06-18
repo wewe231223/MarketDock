@@ -1,0 +1,21 @@
+{
+  "name": "marketdock",
+  "version-string": "0.1.0",
+  "builtin-baseline": "e6ed7c5be05eaedc2d06ee3e51bd059409429c5e",
+  "dependencies": [
+    {
+      "name": "imgui",
+      "features": [
+        "win32-binding",
+        "dx12-binding",
+        "docking-experimental",
+        "freetype"
+      ]
+    },
+    "implot",
+    "nlohmann-json",
+    "boost-beast",
+    "openssl",
+    "spdlog"
+  ]
+}
