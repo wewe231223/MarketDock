@@ -17,6 +17,25 @@ endif()
 
 add_compile_definitions(UNICODE _UNICODE)
 
+set(MarketDockVcpkgTriplet "x64-windows")
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(MarketDockVcpkgTriplet "x86-windows")
+endif()
+
+set(MarketDockVcpkgPrefix "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg_installed/${MarketDockVcpkgTriplet}")
+
+if(EXISTS "${MarketDockVcpkgPrefix}/${MarketDockVcpkgTriplet}/include")
+    set(MarketDockVcpkgPrefix "${MarketDockVcpkgPrefix}/${MarketDockVcpkgTriplet}")
+endif()
+
+if(EXISTS "${MarketDockVcpkgPrefix}/share/imgui")
+    list(PREPEND CMAKE_PREFIX_PATH "${MarketDockVcpkgPrefix}")
+endif()
+
+find_package(imgui CONFIG REQUIRED)
+find_package(implot CONFIG REQUIRED)
+
 function(ConfigureVisualStudioTarget TargetName)
     if(MSVC)
         set_target_properties(${TargetName} PROPERTIES
@@ -27,14 +46,28 @@ function(ConfigureVisualStudioTarget TargetName)
 endfunction()
 
 add_library(Core STATIC
+    Core/Application/Application.cpp
+    Core/Application/Application.h
     Core/Core.cpp
     Core/Core.h
+    Core/Rendering/DirectX12Renderer.cpp
+    Core/Rendering/DirectX12Renderer.h
+    Core/UserInterface/ImGuiLayer.cpp
+    Core/UserInterface/ImGuiLayer.h
 )
 
 ConfigureVisualStudioTarget(Core)
 
 target_include_directories(Core PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/Core
+)
+
+target_link_libraries(Core PUBLIC
+    imgui::imgui
+    implot::implot
+    d3d12
+    dwmapi
+    dxgi
 )
 
 add_library(Network STATIC
