@@ -3,5 +3,8 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="MarketDock.vcxproj" />
+  <Project Path="Core\Core.vcxproj" Id="218a027f-951d-4bff-9ecd-2f373cdecc61" />
+  <Project Path="MarketDock.vcxproj" Id="c1aadf09-42a9-461d-9e1b-80549e7d37f2" />
+  <Project Path="Network\Network.vcxproj" Id="2af515fb-b78b-4eb2-8511-8b715d83bdcb" />
+  <Project Path="Test\Test.vcxproj" Id="3199c7f7-d84e-483d-b420-a826f5a96456" />
 </Solution>
